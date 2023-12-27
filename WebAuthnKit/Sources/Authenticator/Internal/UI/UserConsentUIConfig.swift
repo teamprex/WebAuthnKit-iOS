@@ -8,6 +8,7 @@
 
 import Foundation
 import LocalAuthentication
+import UIKit
 
 public class UserConsentUIConfig {
     

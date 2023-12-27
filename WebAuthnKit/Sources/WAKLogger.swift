@@ -10,7 +10,7 @@ import Foundation
 
 public class WAKLogger {
 
-    public static var available: Bool = false
+    public static var available: Bool = true
 
     public static func debug(_ msg: String) {
         if available {

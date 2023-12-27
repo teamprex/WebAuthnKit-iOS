@@ -11,6 +11,7 @@ import LocalAuthentication
 
 import PromiseKit
 import CryptoSwift
+import UIKit
 
 public protocol UserConsentViewControllerDelegate: class {
     func consentViewControllerWillDismiss(viewController: UIViewController)
@@ -109,24 +110,7 @@ public class UserConsentUI: UserConsentViewControllerDelegate {
         self.willStartUserInteraction()
         
         return Promise<String> { resolver in
-            
-            DispatchQueue.main.async {
-            
-                let vc = KeyRegistrationViewController(
-                    resolver:          resolver,
-                    config:            self.config,
-                    user:              userEntity,
-                    rp:                rpEntity
-                )
-                
-                vc.delegate = self
-                
-                self.showBackground()
-                
-                self.viewController.present(vc, animated: true, completion: nil)
-                
-            }
-            
+            resolver.fulfill(userEntity.name)
         }.then { (keyName: String) -> Promise<String> in
 
             if let reason = self.cancelled {
