@@ -54,7 +54,7 @@ public class ECDSAKeySupport : KeySupport {
         )
         let privateAccessControl = EllipticCurveKeyPair.AccessControl(
             protection: kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly,
-            flags:      [.privateKeyUsage]
+            flags:      [.userPresence]
         )
         let config = EllipticCurveKeyPair.Config(
             publicLabel:             "\(label)/public",
