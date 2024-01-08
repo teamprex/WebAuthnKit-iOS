@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum WAKError : Error {
+public enum WAKError : Error, Equatable {
     case badData
     case badOperation
     case invalidState
@@ -17,7 +17,35 @@ public enum WAKError : Error {
     case timeout
     case notAllowed
     case unsupported
+    case keyPair(String)
     case unknown
+}
+
+extension WAKError: LocalizedError {
+    public var errorDescription: String? {
+        switch self {
+        case .badData:
+            return "Bad data"
+        case .badOperation:
+            return "Bad operation"
+        case .invalidState:
+            return "Invalid state"
+        case .constraint:
+            return "Constraint"
+        case .cancelled:
+            return "Cancelled"
+        case .timeout:
+            return "Timeout"
+        case .notAllowed:
+            return "Not allowed"
+        case .unsupported:
+            return "Unsupported"
+        case let .keyPair(description):
+            return description
+        case .unknown:
+            return "Unknown"
+        }
+    }
 }
 
 public enum WAKResult<T, Error: Swift.Error> {
