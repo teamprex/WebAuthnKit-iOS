@@ -13,7 +13,7 @@ import LocalAuthentication
 
 public protocol KeySupport {
     var selectedAlg: COSEAlgorithmIdentifier { get }
-    func createKeyPair(label: String) -> Optional<COSEKey>
+    func createKeyPair(label: String) -> Result<COSEKey, Error>
     func sign(data: [UInt8], label: String, context: LAContext) -> Optional<[UInt8]>
 }
 
@@ -78,14 +78,14 @@ public class ECDSAKeySupport : KeySupport {
         }
     }
     
-    public func createKeyPair(label: String) -> Optional<COSEKey> {
+    public func createKeyPair(label: String) -> Result<COSEKey, Error> {
         WAKLogger.debug("<ECDSAKeySupport> createKeyPair")
         do {
             let pair = self.createPair(label: label)
             let publicKey = try pair.publicKey().data().DER.bytes
             if publicKey.count != 91 {
                 WAKLogger.debug("<ECDSAKeySupport> length of pubKey should be 91: \(publicKey.count)")
-                return nil
+                return .failure(WAKError.unknown)
             }
             
             let x = Array(publicKey[27..<59])
@@ -97,11 +97,11 @@ public class ECDSAKeySupport : KeySupport {
                 xCoord: x,
                 yCoord: y
             )
-            return key
+            return .success(key)
             
         } catch let error {
             WAKLogger.debug("<ECDSAKeySupport> failed to create key-pair: \(error)")
-            return nil
+            return .failure(error)
         }
     }
 }

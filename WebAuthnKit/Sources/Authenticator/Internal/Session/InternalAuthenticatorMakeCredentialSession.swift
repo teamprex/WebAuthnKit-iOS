@@ -193,8 +193,14 @@ public class InternalAuthenticatorMakeCredentialSession : AuthenticatorMakeCrede
 
             // TODO should remove fron KeyPair too?
 
-            guard let publicKeyCOSE = keySupport.createKeyPair(label: credSource.keyLabel) else {
-                self.stop(by: .unknown)
+            let publicKeyCOSEResult = keySupport.createKeyPair(label: credSource.keyLabel)
+            guard case let .success(publicKeyCOSE) = publicKeyCOSEResult else {
+                if case let .failure(keyError) = publicKeyCOSEResult {
+                    self.stop(by: .keyPair(keyError))
+                }
+                else {
+                    self.stop(by: .unknown)
+                }
                 return
             }
 
