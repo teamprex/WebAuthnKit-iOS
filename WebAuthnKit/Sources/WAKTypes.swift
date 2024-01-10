@@ -19,6 +19,7 @@ public enum WAKError : Error, Equatable {
     case unsupported
     case keyPair(String)
     case unknown
+    case other(Int)
 }
 
 extension WAKError: LocalizedError {
@@ -44,6 +45,8 @@ extension WAKError: LocalizedError {
             return description
         case .unknown:
             return "Unknown"
+        case let .other(code):
+            return String(code)
         }
     }
 }

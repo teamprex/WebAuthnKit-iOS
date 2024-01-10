@@ -301,12 +301,12 @@ public class UserConsentUI: UserConsentViewControllerDelegate {
                                                 self.dispatchError(resolver, .notAllowed)
                                             default:
                                                 WAKLogger.debug("<UserConsentUI> must not come here")
-                                                self.dispatchError(resolver, .unknown)
+                                                self.dispatchError(resolver, .other(9))
                                             }
 
                                         } else {
                                             WAKLogger.debug("<UserConsentUI> must not come here")
-                                            self.dispatchError(resolver, .unknown)
+                                            self.dispatchError(resolver, .other(10))
                                         }
                     })
                 } else {

@@ -151,7 +151,7 @@ public class InternalAuthenticatorMakeCredentialSession : AuthenticatorMakeCrede
                     self.stop(by: .notAllowed)
                     return
                 default:
-                    self.stop(by: .unknown)
+                    self.stop(by: .other(4))
                     return
                 }
             }
@@ -199,7 +199,7 @@ public class InternalAuthenticatorMakeCredentialSession : AuthenticatorMakeCrede
                     self.stop(by: .keyPair(keyError.localizedDescription))
                 }
                 else {
-                    self.stop(by: .unknown)
+                    self.stop(by: .other(5))
                 }
                 return
             }
@@ -208,7 +208,7 @@ public class InternalAuthenticatorMakeCredentialSession : AuthenticatorMakeCrede
 
             if !self.credentialStore.saveCredentialSource(credSource) {
                 WAKLogger.debug("<MakeCredentialSession> failed to save credential source, stop session")
-                self.stop(by: .unknown)
+                self.stop(by: .other(6))
                 return
             }
 
@@ -239,7 +239,7 @@ public class InternalAuthenticatorMakeCredentialSession : AuthenticatorMakeCrede
                     context:        self.context
                 ) else {
                     WAKLogger.debug("<MakeCredentialSession> failed to build attestation object")
-                    self.stop(by: .unknown)
+                    self.stop(by: .other(7))
                     return
             }
 
@@ -253,7 +253,7 @@ public class InternalAuthenticatorMakeCredentialSession : AuthenticatorMakeCrede
             if let err = error as? WAKError {
                 self.stop(by: err)
             } else {
-                self.stop(by: .unknown)
+                self.stop(by: .other(8))
             }
         }
     }
