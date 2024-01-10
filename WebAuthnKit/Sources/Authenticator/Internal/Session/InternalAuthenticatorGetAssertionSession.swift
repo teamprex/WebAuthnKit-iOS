@@ -145,7 +145,7 @@ public class InternalAuthenticatorGetAssertionSession : AuthenticatorGetAssertio
             copiedCred.signCount = cred.signCount + self.setting.counterStep
             newSignCount = copiedCred.signCount
             if !self.credentialStore.saveCredentialSource(copiedCred) {
-                self.stop(by: .other(1))
+                self.stop(by: .other(.assertionSaveCredentialSource))
                 return
             }
 
@@ -179,7 +179,7 @@ public class InternalAuthenticatorGetAssertionSession : AuthenticatorGetAssertio
             }
             
             guard let signature = keySupport.sign(data: data, label: cred.keyLabel, context: self.context) else {
-                self.stop(by: .other(2))
+                self.stop(by: .other(.keySupportSign))
                 return
             }
 
@@ -204,7 +204,7 @@ public class InternalAuthenticatorGetAssertionSession : AuthenticatorGetAssertio
             if let err = error as? WAKError {
                 self.stop(by: err)
             } else {
-                self.stop(by: .other(3))
+                self.stop(by: .other(.otherAssertion))
             }
         }
         

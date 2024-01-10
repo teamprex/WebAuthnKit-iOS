@@ -85,7 +85,7 @@ public class ECDSAKeySupport : KeySupport {
             let publicKey = try pair.publicKey().data().DER.bytes
             if publicKey.count != 91 {
                 WAKLogger.debug("<ECDSAKeySupport> length of pubKey should be 91: \(publicKey.count)")
-                return .failure(WAKError.other(11))
+                return .failure(WAKError.other(.keyPairLength))
             }
             
             let x = Array(publicKey[27..<59])
