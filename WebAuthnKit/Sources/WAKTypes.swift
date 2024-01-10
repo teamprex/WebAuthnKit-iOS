@@ -18,8 +18,23 @@ public enum WAKError : Error, Equatable {
     case notAllowed
     case unsupported
     case keyPair(String)
-    case unknown
-    case other(Int)
+    case other(WAKOther)
+    public enum WAKOther: String, Equatable {
+        case assertionSaveCredentialSource
+        case keySupportSign
+        case otherAssertion
+        case otherMakeAsk
+        case makeSaveCredentialSource
+        case createAttestation
+        case otherMakeCredential
+        case laError
+        case otherLAError
+        case keyPairLength
+        case credentialDataNotFound
+        case failedBuildAttestationNone
+        case failedBuildAttestation
+        case discoverCredentialNotFound
+    }
 }
 
 extension WAKError: LocalizedError {
@@ -42,11 +57,9 @@ extension WAKError: LocalizedError {
         case .unsupported:
             return "Unsupported"
         case let .keyPair(description):
-            return description
-        case .unknown:
-            return "Unknown"
+            return "keyPair \(description)"
         case let .other(code):
-            return String(code)
+            return code.rawValue
         }
     }
 }

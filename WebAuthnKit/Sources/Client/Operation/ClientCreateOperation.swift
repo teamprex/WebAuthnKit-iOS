@@ -278,7 +278,7 @@ public class ClientCreateOperation: AuthenticatorMakeCredentialSessionDelegate {
         guard let attestedCred =
             attestation.authData.attestedCredentialData else {
             WAKLogger.debug("<CreateOperation> attested credential data not found")
-            self.dispatchError(.other(12))
+            self.dispatchError(.other(.credentialDataNotFound))
             return
         }
 
@@ -295,7 +295,7 @@ public class ClientCreateOperation: AuthenticatorMakeCredentialSessionDelegate {
             atts = attestation.toNone()
             guard let bytes = atts.toBytes() else {
                 WAKLogger.debug("<CreateOperation> failed to build attestation-object")
-                self.dispatchError(.other(13))
+                self.dispatchError(.other(.failedBuildAttestationNone))
                 return
             }
             attestationObject = bytes
@@ -306,7 +306,7 @@ public class ClientCreateOperation: AuthenticatorMakeCredentialSessionDelegate {
         } else {
             guard let bytes = atts.toBytes() else {
                 WAKLogger.debug("<CreateOperation> failed to build attestation-object")
-                self.dispatchError(.other(14))
+                self.dispatchError(.other(.failedBuildAttestation))
                 return
             }
             attestationObject = bytes
