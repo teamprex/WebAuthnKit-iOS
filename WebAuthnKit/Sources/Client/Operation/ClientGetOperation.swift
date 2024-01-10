@@ -282,7 +282,7 @@ public class ClientGetOperation: AuthenticatorGetAssertionSessionDelegate {
             WAKLogger.debug("<GetOperation> use credentialId from authenticator")
             guard let resultId = assertion.credentailId else {
                 WAKLogger.debug("<GetOperation> credentialId not found")
-                self.dispatchError(.unknown)
+                self.dispatchError(.other(15))
                 return
             }
             credentialId = resultId
