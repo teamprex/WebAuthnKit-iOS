@@ -82,6 +82,7 @@ public class ECDSAKeySupport : KeySupport {
         WAKLogger.debug("<ECDSAKeySupport> createKeyPair")
         do {
             let pair = self.createPair(label: label)
+            try pair.deleteKeyPair()
             let publicKey = try pair.publicKey().data().DER.bytes
             if publicKey.count != 91 {
                 WAKLogger.debug("<ECDSAKeySupport> length of pubKey should be 91: \(publicKey.count)")
