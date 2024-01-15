@@ -34,9 +34,7 @@ This library provides you a way to handle W3C Web Authentication API (a.k.a. Web
   # s.requires_arc = true
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
   s.dependency "PromiseKit", "~> 6.13.1"
-  s.dependency "EllipticCurveKeyPair", "~> 2.0"
   s.dependency "KeychainAccess", "~> 4.2.1"
-  s.dependency "CryptoSwift", "~> 1.3.8"
 
   s.swift_version = "4.2"
 

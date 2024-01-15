@@ -10,7 +10,6 @@ import Foundation
 import LocalAuthentication
 
 import PromiseKit
-import CryptoSwift
 import UIKit
 
 public protocol UserConsentViewControllerDelegate: class {
